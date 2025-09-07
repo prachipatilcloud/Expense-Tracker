@@ -39,10 +39,19 @@ body {
   margin: 15px 0;
   cursor: pointer;
   font-size: 1.1rem;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 .sidebar nav ul li:hover {
   color: #00c49f;
+  background: rgba(0, 196, 159, 0.1);
+}
+
+.sidebar nav ul li.active {
+  background: #00c49f;
+  color: #fff;
 }
 
 /* Main Content */
@@ -189,5 +198,19 @@ input {
 
 .chart-container h3 {
   margin-bottom: 20px;
+}
+
+/* Chart Section */
+.chart-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .chart-section {
+    grid-template-columns: 1fr;
+  }
 }
 

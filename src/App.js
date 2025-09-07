@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Balance from "./components/Balance";
 import IncomeExpenses from "./components/IncomeExpenses";
 import TransactionList from "./components/TransactionList";
@@ -8,6 +8,8 @@ import TransactionHistoryChart from "./components/TransactionHistoryChart"; // �
 import "./index.css";
 
 function App() {
+  const [activeSection, setActiveSection] = useState("dashboard");
+
   return (
     <div className="app-container">
       {/* Sidebar */}
@@ -15,9 +17,24 @@ function App() {
         <h2>💰 Expense Tracker</h2>
         <nav>
           <ul>
-            <li>Dashboard</li>
-            <li>Transactions</li>
-            <li>Reports</li>
+            <li 
+              className={activeSection === "dashboard" ? "active" : ""}
+              onClick={() => setActiveSection("dashboard")}
+            >
+              Dashboard
+            </li>
+            <li 
+              className={activeSection === "transactions" ? "active" : ""}
+              onClick={() => setActiveSection("transactions")}
+            >
+              Transactions
+            </li>
+            <li 
+              className={activeSection === "reports" ? "active" : ""}
+              onClick={() => setActiveSection("reports")}
+            >
+              Reports
+            </li>
           </ul>
         </nav>
       </aside>
@@ -25,27 +42,54 @@ function App() {
       {/* Main Section */}
       <main className="main-content">
         <header className="header">
-          <h1>Dashboard</h1>
+          <h1>
+            {activeSection === "dashboard" && "Dashboard"}
+            {activeSection === "transactions" && "Transactions"}
+            {activeSection === "reports" && "Reports"}
+          </h1>
         </header>
 
-        <section className="stats">
-          <Balance />
-          <IncomeExpenses />
-        </section>
+        {/* Dashboard Section */}
+        {activeSection === "dashboard" && (
+          <>
+            <section className="stats">
+              <Balance />
+              <IncomeExpenses />
+            </section>
 
-        {/* ✅ Charts Section */}
-        <section className="chart-section">
-          <ExpenseChart />
-          <TransactionHistoryChart /> {/* ✅ Added */}
-        </section>
+            <section className="add-transaction">
+              <AddTransaction />
+            </section>
+          </>
+        )}
 
-        <section className="transactions">
-          <TransactionList />
-        </section>
+        {/* Transactions Section */}
+        {activeSection === "transactions" && (
+          <>
+            <section className="add-transaction">
+              <AddTransaction />
+            </section>
+            
+            <section className="transactions">
+              <TransactionList />
+            </section>
+          </>
+        )}
 
-        <section className="add-transaction">
-          <AddTransaction />
-        </section>
+        {/* Reports Section */}
+        {activeSection === "reports" && (
+          <>
+            <section className="stats">
+              <Balance />
+              <IncomeExpenses />
+            </section>
+
+            <section className="chart-section">
+              <ExpenseChart />
+              <TransactionHistoryChart />
+            </section>
+          </>
+        )}
       </main>
     </div>
   );
