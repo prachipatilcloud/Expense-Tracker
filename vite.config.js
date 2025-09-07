@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/Expense-Tracker/',
   build: {
-    outDir: 'build'
+    outDir: 'dist'
   },
   server: {
     port: 3000,
