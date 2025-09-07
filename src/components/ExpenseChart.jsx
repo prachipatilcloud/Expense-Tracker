@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { GlobalContext } from "../context/GlobalState";
+import { GlobalContext } from "../context/GlobalState.jsx";
 
 export default function ExpenseChart() {
   const { transactions } = useContext(GlobalContext);

@@ -8,7 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from "recharts";
-import { GlobalContext } from "../context/GlobalState";
+import { GlobalContext } from "../context/GlobalState.jsx";
 
 export default function TransactionHistoryChart() {
   const { transactions } = useContext(GlobalContext);
