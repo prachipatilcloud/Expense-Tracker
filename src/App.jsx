@@ -5,6 +5,7 @@ import TransactionList from "./components/TransactionList";
 import AddTransaction from "./components/AddTransaction";
 import ExpenseChart from "./components/ExpenseChart";
 import TransactionHistoryChart from "./components/TransactionHistoryChart"; // ✅ new chart
+import Groups from "./components/Groups.jsx";
 import { useTheme } from "./context/ThemeContext.jsx";
 import "./index.css";
 
@@ -46,6 +47,12 @@ function App() {
               Transactions
             </li>
             <li 
+              className={activeSection === "groups" ? "active" : ""}
+              onClick={() => setActiveSection("groups")}
+            >
+              Groups
+            </li>
+            <li 
               className={activeSection === "reports" ? "active" : ""}
               onClick={() => setActiveSection("reports")}
             >
@@ -62,6 +69,7 @@ function App() {
           <h1>
             {activeSection === "dashboard" && "Dashboard"}
             {activeSection === "transactions" && "Transactions"}
+            {activeSection === "groups" && "Groups"}
             {activeSection === "reports" && "Reports"}
           </h1>
         </header>
@@ -91,6 +99,13 @@ function App() {
               <TransactionList />
             </section>
           </>
+        )}
+
+        {/* Groups Section */}
+        {activeSection === "groups" && (
+          <section className="groups">
+            <Groups />
+          </section>
         )}
 
         {/* Reports Section */}
@@ -125,6 +140,13 @@ function App() {
           >
             <div className="mobile-nav-icon">💳</div>
             <div className="mobile-nav-label">Transactions</div>
+          </div>
+          <div 
+            className={`mobile-nav-item ${activeSection === "groups" ? "active" : ""}`}
+            onClick={() => setActiveSection("groups")}
+          >
+            <div className="mobile-nav-icon">👥</div>
+            <div className="mobile-nav-label">Groups</div>
           </div>
           <div 
             className={`mobile-nav-item ${activeSection === "reports" ? "active" : ""}`}

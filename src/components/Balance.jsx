@@ -8,9 +8,13 @@ export default function Balance() {
   const total = amounts.reduce((acc, item) => acc + item, 0).toFixed(2);
 
   return (
-    <div>
-      <h4>Your Balance</h4>
-      <h1>${total}</h1>
+    <div className="balance-container">
+      <div className="balance-card">
+        <h2>Your Balance</h2>
+        <h1 className="balance-amount">
+          <span className="currency">₹</span>{total}
+        </h1>
+      </div>
     </div>
   );
 }

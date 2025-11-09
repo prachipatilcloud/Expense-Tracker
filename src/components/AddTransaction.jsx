@@ -27,15 +27,32 @@ export default function AddTransaction() {
       <form onSubmit={onSubmit}>
         <div className="form-control">
           <label>Text</label>
-          <input value={text} onChange={e => setText(e.target.value)} placeholder="Enter text..." />
+          <input 
+            type="text"
+            value={text} 
+            onChange={e => setText(e.target.value)} 
+            placeholder="e.g., Grocery shopping, Coffee with friends, Salary..." 
+            required
+          />
         </div>
         <div className="form-control">
           <label>Amount (negative = expense, positive = income)</label>
-          <input type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="Enter amount..." />
+          <input 
+            type="number" 
+            value={amount} 
+            onChange={e => setAmount(e.target.value)} 
+            placeholder="e.g., -50 for expense, +1000 for income"
+            step="0.01"
+            required
+          />
         </div>
         <div className="form-control">
           <label>Date</label>
-          <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+          <input 
+            type="date" 
+            value={date} 
+            onChange={e => setDate(e.target.value)} 
+          />
         </div>
         <button className="btn">Add Transaction</button>
       </form>
