@@ -8,7 +8,7 @@ const CreateGroup = ({ onBack, onGroupCreated }) => {
     description: ''
   });
   const [members, setMembers] = useState([
-    { id: Date.now().toString(), name: '', email: '' }
+    { id: Date.now().toString(), name: '' }
   ]);
   const [errors, setErrors] = useState({});
 
@@ -38,7 +38,7 @@ const CreateGroup = ({ onBack, onGroupCreated }) => {
   const addMember = () => {
     setMembers(prev => [
       ...prev,
-      { id: Date.now().toString(), name: '', email: '' }
+      { id: Date.now().toString(), name: '' }
     ]);
   };
 
@@ -80,8 +80,7 @@ const CreateGroup = ({ onBack, onGroupCreated }) => {
       .filter(member => member.name.trim())
       .map(member => ({
         id: member.id,
-        name: member.name.trim(),
-        email: member.email.trim()
+        name: member.name.trim()
       }));
 
     const groupData = {
@@ -155,13 +154,6 @@ const CreateGroup = ({ onBack, onGroupCreated }) => {
                     value={member.name}
                     onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
                     className="member-name-input"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email (optional)"
-                    value={member.email}
-                    onChange={(e) => handleMemberChange(index, 'email', e.target.value)}
-                    className="member-email-input"
                   />
                 </div>
                 {members.length > 1 && (

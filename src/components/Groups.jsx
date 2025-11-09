@@ -3,6 +3,7 @@ import GroupList from './GroupList.jsx';
 import CreateGroup from './CreateGroup.jsx';
 import GroupDetails from './GroupDetails.jsx';
 import AddGroupExpense from './AddGroupExpense.jsx';
+import SettleUp from './SettleUp.jsx';
 
 const Groups = () => {
   const [currentView, setCurrentView] = useState('list');
@@ -11,6 +12,10 @@ const Groups = () => {
   const handleBackToList = () => {
     setCurrentView('list');
     setSelectedGroupId(null);
+  };
+
+  const handleBackToDetails = () => {
+    setCurrentView('details');
   };
 
   const handleCreateGroup = () => {
@@ -34,7 +39,14 @@ const Groups = () => {
     setCurrentView('details');
   };
 
+  const handleSettleUp = () => {
+    console.log('Groups: handleSettleUp called');
+    setCurrentView('settleUp');
+  };
+
   const renderCurrentView = () => {
+    console.log('Groups: renderCurrentView - currentView:', currentView, 'selectedGroupId:', selectedGroupId);
+    
     switch (currentView) {
       case 'list':
         return (
@@ -58,6 +70,7 @@ const Groups = () => {
             groupId={selectedGroupId}
             onBack={handleBackToList}
             onAddExpense={handleAddExpense}
+            onSettleUp={handleSettleUp}
           />
         );
       
@@ -65,8 +78,16 @@ const Groups = () => {
         return (
           <AddGroupExpense 
             groupId={selectedGroupId}
-            onBack={() => setCurrentView('details')}
+            onBack={handleBackToDetails}
             onExpenseAdded={handleExpenseAdded}
+          />
+        );
+      
+      case 'settleUp':
+        return (
+          <SettleUp 
+            groupId={selectedGroupId}
+            onBack={handleBackToDetails}
           />
         );
       

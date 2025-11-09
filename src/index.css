@@ -1121,7 +1121,11 @@ input[type="number"] {
 
 .members-list {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .btn-icon {
@@ -1197,6 +1201,8 @@ input[type="number"] {
 
 .members-list {
   margin-bottom: 16px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .create-group-form, .add-expense-form {
@@ -1208,6 +1214,17 @@ input[type="number"] {
   margin: 0 24px;
   max-width: 100%;
   overflow: hidden;
+  box-sizing: border-box;
+}
+
+.create-group-form * {
+  box-sizing: border-box;
+}
+
+.form-section {
+  margin-bottom: 32px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .create-group-form h2 {
@@ -1279,19 +1296,21 @@ input[type="number"] {
   display: flex;
   gap: 12px;
   margin-bottom: 16px;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .member-inputs {
   display: flex;
-  gap: 12px;
   flex: 1;
-  min-width: 0; /* Allow shrinking */
+  width: 100%;
+  max-width: 100%;
 }
 
 .member-inputs input {
-  flex: 1;
+  width: 100%;
   padding: 14px 16px;
   border: 2px solid var(--card-border);
   border-radius: 12px;
@@ -1300,7 +1319,7 @@ input[type="number"] {
   font-size: 1rem;
   transition: all 0.3s ease;
   box-sizing: border-box;
-  min-width: 0; /* Allow shrinking */
+  max-width: 100%;
 }
 
 .member-inputs input:focus {
@@ -1632,6 +1651,352 @@ input[type="number"] {
   font-size: 1rem;
 }
 
+/* Settle Up Component Styles */
+.settle-up-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.settle-up-header {
+  margin-bottom: 32px;
+}
+
+.settle-up-header h2 {
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 16px 0 0 0;
+  background: linear-gradient(135deg, var(--primary) 0%, #00e5a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.settle-up-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+/* Debts Section */
+.debts-section h3,
+.settlement-history h3 {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.debts-section h3::before {
+  content: '💰';
+  font-size: 1.2rem;
+}
+
+.settlement-history h3::before {
+  content: '📜';
+  font-size: 1.2rem;
+}
+
+.no-debts {
+  text-align: center;
+  background: var(--card-bg);
+  padding: 40px 24px;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+}
+
+.no-debts-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.no-debts h4 {
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.no-debts p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Debt Cards */
+.debts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.debt-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.debt-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.debt-info {
+  flex: 1;
+}
+
+.debt-participants {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.debtor {
+  color: var(--text-primary);
+  font-weight: 600;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.debt-arrow {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.creditor {
+  color: var(--text-primary);
+  font-weight: 600;
+  background: rgba(0, 196, 159, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.debt-amount {
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.settle-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, #00e5a0 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.settle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 196, 159, 0.3);
+}
+
+/* Settlement History */
+.no-settlements {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+  text-align: center;
+}
+
+.no-settlements p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.settlements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settlement-card {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+}
+
+.settlement-card:hover {
+  background: var(--card-bg);
+}
+
+.settlement-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.settlement-participants {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settlement-from,
+.settlement-to {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.settlement-arrow {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.settlement-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.settlement-amount {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.settlement-date {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.settlement-description {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* Settlement Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.settle-modal {
+  background: var(--card-bg);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--card-border);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.modal-header h3 {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.modal-content {
+  padding: 24px;
+}
+
+.settlement-summary {
+  background: var(--bg-primary);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  border: 1px solid var(--card-border);
+}
+
+.settlement-summary p {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.settlement-summary .debt-amount {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px 24px 24px;
+  border-top: 1px solid var(--card-border);
+}
+
+.modal-actions .btn {
+  flex: 1;
+}
+
+/* Group Details Enhancements for Settle Up */
+.expenses-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.balances-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.balances-header h3 {
+  margin: 0;
+}
+
 .btn-back {
   background: var(--bg-primary);
   border: 2px solid var(--card-border);
@@ -1824,22 +2189,32 @@ input[type="number"] {
   .create-group-form, .add-expense-form {
     margin: 0 16px;
     padding: 24px;
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
   }
   
   .member-inputs {
     flex-direction: column;
     gap: 8px;
+    max-width: 100%;
   }
   
   .member-input-row {
     flex-direction: column;
     gap: 8px;
     align-items: stretch;
+    max-width: 100%;
+  }
+  
+  .member-inputs input {
+    width: 100%;
+    max-width: 100%;
   }
   
   .btn-icon.btn-danger {
     align-self: flex-end;
     margin-top: 8px;
+    flex-shrink: 0;
   }
   
   .members-header {
@@ -1850,6 +2225,66 @@ input[type="number"] {
   
   .add-member-btn {
     width: 100%;
+  }
+  
+  /* Settle Up Mobile Styles */
+  .settle-up-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .debt-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .debt-participants {
+    justify-content: center;
+  }
+  
+  .debt-amount {
+    text-align: center;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+  }
+  
+  .settle-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 1rem;
+  }
+  
+  .settlement-info {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .settlement-details {
+    align-items: flex-start;
+  }
+  
+  .expenses-actions {
+    flex-direction: column;
+  }
+  
+  .balances-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .modal-overlay {
+    padding: 16px;
+  }
+  
+  .settle-modal {
+    max-height: 95vh;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
   }
   
   .expense-main {

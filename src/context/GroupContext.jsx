@@ -107,15 +107,26 @@ const groupReducer = (state, action) => {
         ...state,
         groups: state.groups.map(group => {
           if (group.id === action.payload.groupId) {
-            const settlementExpense = {
+            // Create settlement record
+            const settlement = {
               id: Date.now().toString(),
-              description: `Settlement: ${action.payload.from} → ${action.payload.to}`,
+              fromMemberId: action.payload.fromMemberId,
+              toMemberId: action.payload.toMemberId,
               amount: action.payload.amount,
-              paidBy: action.payload.from,
+              date: new Date().toISOString(),
+              description: action.payload.description || 'Debt settlement'
+            };
+            
+            // Create settlement expense to offset debts
+            const settlementExpense = {
+              id: (Date.now() + 1).toString(), // Different ID
+              description: action.payload.description || `Settlement: ${action.payload.fromMemberId} → ${action.payload.toMemberId}`,
+              amount: action.payload.amount,
+              paidBy: action.payload.fromMemberId,
               splitType: 'exact',
               splits: [
-                { memberId: action.payload.from, amount: action.payload.amount },
-                { memberId: action.payload.to, amount: -action.payload.amount }
+                { memberId: action.payload.fromMemberId, amount: action.payload.amount },
+                { memberId: action.payload.toMemberId, amount: -action.payload.amount }
               ],
               date: new Date().toISOString(),
               category: 'Settlement',
@@ -124,6 +135,7 @@ const groupReducer = (state, action) => {
             
             return {
               ...group,
+              settlements: [...(group.settlements || []), settlement],
               expenses: [...group.expenses, settlementExpense]
             };
           }
@@ -179,6 +191,14 @@ export const calculateGroupDebts = (group) => {
       memberBalances[split.memberId] -= split.amount;
     });
   });
+  
+  // Apply settlements to balances
+  if (group.settlements) {
+    group.settlements.forEach(settlement => {
+      memberBalances[settlement.fromMemberId] += settlement.amount;
+      memberBalances[settlement.toMemberId] -= settlement.amount;
+    });
+  }
   
   // Create debt relationships
   const debts = [];
@@ -272,8 +292,11 @@ export const GroupProvider = ({ children }) => {
     dispatch({ type: 'DELETE_GROUP_EXPENSE', payload: { groupId, expenseId } });
   };
   
-  const settleDebt = (groupId, from, to, amount) => {
-    dispatch({ type: 'SETTLE_DEBT', payload: { groupId, from, to, amount } });
+  const settleDebt = (groupId, fromMemberId, toMemberId, amount, description) => {
+    dispatch({ 
+      type: 'SETTLE_DEBT', 
+      payload: { groupId, fromMemberId, toMemberId, amount, description } 
+    });
   };
   
   const getGroup = (groupId) => {

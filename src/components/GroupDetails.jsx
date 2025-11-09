@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useGroups, calculateGroupDebts } from '../context/GroupContext.jsx';
 
-const GroupDetails = ({ groupId, onBack, onAddExpense }) => {
+const GroupDetails = ({ groupId, onBack, onAddExpense, onSettleUp }) => {
   const { getGroup, getMember } = useGroups();
   const [activeTab, setActiveTab] = useState('expenses');
   
   const group = getGroup(groupId);
+  
+  // Debug: Check if onSettleUp is passed
+  console.log('GroupDetails onSettleUp:', typeof onSettleUp);
   
   if (!group) {
     return (
@@ -39,9 +42,27 @@ const GroupDetails = ({ groupId, onBack, onAddExpense }) => {
     <div className="expenses-tab">
       <div className="expenses-header">
         <h3>Group Expenses</h3>
-        <button className="btn btn-primary" onClick={onAddExpense}>
-          + Add Expense
-        </button>
+        <div className="expenses-actions">
+          <button 
+            className="btn btn-secondary" 
+            onClick={() => {
+              console.log('Settle Up button clicked');
+              alert('Button works! Now testing navigation...'); 
+              if (onSettleUp) {
+                console.log('Calling onSettleUp...');
+                onSettleUp();
+              } else {
+                console.error('onSettleUp is not provided');
+                alert('Error: onSettleUp function not provided');
+              }
+            }}
+          >
+            Settle Up
+          </button>
+          <button className="btn btn-primary" onClick={onAddExpense}>
+            + Add Expense
+          </button>
+        </div>
       </div>
 
       {group.expenses.length === 0 ? (
@@ -90,7 +111,24 @@ const GroupDetails = ({ groupId, onBack, onAddExpense }) => {
 
   const BalancesTab = () => (
     <div className="balances-tab">
-      <h3>Balances & Settlements</h3>
+      <div className="balances-header">
+        <h3>Balances & Settlements</h3>
+        {debts.length > 0 && (
+          <button 
+            className="btn btn-primary" 
+            onClick={() => {
+              console.log('Balances Settle Up button clicked');
+              if (onSettleUp) {
+                onSettleUp();
+              } else {
+                console.error('onSettleUp is not provided in balances');
+              }
+            }}
+          >
+            Settle Up
+          </button>
+        )}
+      </div>
       
       {debts.length === 0 ? (
         <div className="empty-state">
