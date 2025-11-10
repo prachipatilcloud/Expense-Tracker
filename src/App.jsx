@@ -21,14 +21,14 @@ function App() {
       </button>
 
       {/* Mobile Top Navbar */}
-      <nav className="mobile-navbar">
+      {/* <nav className="mobile-navbar">
         <div className="mobile-navbar-content">
           <div className="mobile-navbar-logo">💰 Xpensr</div>
           <button className="mobile-theme-toggle" onClick={toggleTheme} title="Toggle Theme">
             {isDarkMode ? "☀️" : "🌙"}
           </button>
         </div>
-      </nav>
+      </nav> */}
       {/* Sidebar */}
       <aside className="sidebar">
         <h2 className="logo">💰 Xpensr</h2>
